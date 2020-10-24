@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Save Mobile Data</string>
+    <string name="accessibility_service_description">Save Mobile Data will use this service to prevent an excessive data usage</string>
+    <string name="accessibility_service_name">Save Mobile Data</string>
+</resources>

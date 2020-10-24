@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="@drawable/backloca4">
+
+    <TextView
+        android:text="Here you can specify the location where\nyou want to be warned of an excessive\ndata usage activity\n\nThe app won't disturb you outside that location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="117dp"
+        android:layout_marginLeft="56dp"
+        android:id="@+id/textView" />
+
+    <ImageView
+        android:layout_width="418dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="-33dp"
+        app:srcCompat="@drawable/savecurrentloc"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageView3"
+        android:elevation="7dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true" />
+
+    <ImageView
+        android:layout_width="418dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="-77dp"
+        android:layout_marginLeft="-33dp"
+        app:srcCompat="@drawable/locationsaved"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageView30"
+        android:elevation="7dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true" />
+
+    <TextView
+        android:text="First, make sure you\nthe app 'Installed services'"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginLeft="56dp"
+        android:id="@+id/textView2" />
+
+    <ImageView
+        android:layout_width="96dp"
+        android:layout_height="19dp"
+        app:srcCompat="@drawable/enable"
+        android:layout_marginTop="-34dp"
+        android:layout_marginLeft="180dp"
+        android:elevation="12dp"
+        android:id="@+id/imageView8"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="111dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="99dp"
+        android:layout_marginTop="107dp"
+        android:text="TextView" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="111dp"
+        android:layout_marginTop="-19dp"
+        android:layout_marginLeft="181dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4" />
+
+    <ImageView
+        android:layout_width="165dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="-170dp"
+        android:layout_marginLeft="22dp"
+        android:id="@+id/imageView81"
+        android:elevation="12dp"
+        app:srcCompat="@drawable/changehalf"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"/>
+
+    <ImageView
+        android:layout_width="165dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="-85dp"
+        android:layout_marginLeft="186dp"
+        android:id="@+id/imageView82"
+        android:elevation="12dp"
+        app:srcCompat="@drawable/deletehalf"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Latitude"
+        android:id="@+id/textView31"
+        android:layout_marginLeft="111dp"
+        android:layout_marginTop="48dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Longitude"
+        android:id="@+id/textView41"
+        android:layout_marginLeft="186dp"
+        android:layout_marginTop="-21dp"
+        android:textStyle="bold"/>
+
+</LinearLayout>
