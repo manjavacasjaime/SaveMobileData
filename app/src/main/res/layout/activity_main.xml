@@ -96,7 +96,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Save Mobile Data will send you a warning\nwhen you are using high data usage apps,\nlike Instagram or YouTube, without\nrealizing you are not connected to Wi-Fi
+        android:text="Save Mobile Data will send you a warning\nwhen you are using high data usage apps\nwithout realizing you are not\nconnected to Wi-Fi
         \n\nYou can specify a warning location (e.g. Home)\nin our app settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

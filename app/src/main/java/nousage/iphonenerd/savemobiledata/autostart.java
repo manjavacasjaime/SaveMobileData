@@ -32,6 +32,7 @@ public class autostart extends BroadcastReceiver {
         if (onCreateLaunched != 1) {
 
             SharedPreferences sharedPrefs = context.getSharedPreferences("nousage.savemobiledata", MODE_PRIVATE);
+
             onoff = sharedPrefs.getInt("onoff", 0);
             pushquiet = sharedPrefs.getInt("pushquiet", 1);
             saveLoc = sharedPrefs.getInt("saveLoc", 0);

@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -37,6 +38,9 @@ import static nousage.iphonenerd.savemobiledata.MainActivity.maxLong;
 import static nousage.iphonenerd.savemobiledata.MainActivity.minLat;
 import static nousage.iphonenerd.savemobiledata.MainActivity.minLong;
 import static nousage.iphonenerd.savemobiledata.MainActivity.saveLoc;
+
+import static nousage.iphonenerd.savemobiledata.MainActivity.onAdLaunched;
+import static nousage.iphonenerd.savemobiledata.MainActivity.mInterstitialAd;
 
 
 public class LocationActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -61,6 +65,7 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
         setContentView(R.layout.activity_location);
         Log.d(TAG, "onCreate called");
         setInterface();
+
 
         // Create the LocationRequest object
         mLocationRequest = LocationRequest.create()
@@ -144,9 +149,54 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
 
     @Override
     protected void onStart() {
-// connect googleapiclient
-        mGoogleApiClient.connect();
         super.onStart();
+        SharedPreferences.Editor editor = getSharedPreferences("nousage.savemobiledata", MODE_PRIVATE).edit();
+
+        if (onAdLaunched == 0) {
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+                onAdLaunched++;
+                editor.putInt("onAdLaunched", onAdLaunched);
+                editor.commit();
+            }
+        } else {
+            onAdLaunched++;
+            if (onAdLaunched == 3) onAdLaunched = 0;
+            editor.putInt("onAdLaunched", onAdLaunched);
+            editor.commit();
+        }
+
+        /*if (onAdLaunched == 0) {
+
+            Log.d("TAG", "INTERSTITIAL VALUE0");
+            mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    Log.d("TAG", "INTERSTITIAL LOADED");
+                    mInterstitialAd.show();
+                    onAdLaunched++;
+                    SharedPreferences.Editor editor = getSharedPreferences("nousage.savemobiledata", MODE_PRIVATE).edit();
+                    editor.putInt("onAdLaunched", onAdLaunched);
+                    editor.commit();
+                }
+
+                @Override
+                public void onAdFailedToLoad(int errorCode) {
+                    Log.d("TAG", "The interstitial wasn't loaded yet." + errorCode);
+                }
+            });
+        } else {
+            Log.d("TAG", "INTERSTITIAL VALUE123");
+            onAdLaunched++;
+            if (onAdLaunched == 3) onAdLaunched = 0;
+            SharedPreferences.Editor editor = getSharedPreferences("nousage.savemobiledata", MODE_PRIVATE).edit();
+            editor.putInt("onAdLaunched", onAdLaunched);
+            editor.commit();
+        }*/
+
+        // connect googleapiclient
+        mGoogleApiClient.connect();
         Log.d(TAG, "onStart called"); //THIS IS WORKING
 
         setInterface();
@@ -792,4 +842,5 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
     public void onLocationChanged(Location location) {
         handleNewLocation(location);
     }
+
 }

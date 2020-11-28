@@ -21,7 +21,6 @@ import java.lang.reflect.Method;
 
 import static nousage.iphonenerd.savemobiledata.autostart.round;
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public static int onCreateLaunched;
     public static int onAdLaunched;
 
-    private InterstitialAd mInterstitialAd;
+    public static InterstitialAd mInterstitialAd;
 
     ImageButton tBMobileData;
 
@@ -59,17 +58,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-9180401716986593/9443423441");
+        SharedPreferences sharedPrefs = getSharedPreferences("nousage.savemobiledata", MODE_PRIVATE);
+        onAdLaunched = sharedPrefs.getInt("onAdLaunched", 0);
+
 
         final Switch mSwitch = (Switch) findViewById(R.id.switch1);
-
 
         ImageView mEnableText = (ImageView) findViewById(R.id.imageView);
         mEnableText.setVisibility(View.INVISIBLE);
@@ -81,9 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
         this.startService(mServiceIntent);
 
-
-        SharedPreferences sharedPrefs = getSharedPreferences("nousage.savemobiledata", MODE_PRIVATE);
-        onAdLaunched = sharedPrefs.getInt("onAdLaunched", 0);
 
         saveLoc = sharedPrefs.getInt("saveLoc", 0);
         if (saveLoc == 1) {
@@ -101,33 +92,6 @@ public class MainActivity extends AppCompatActivity {
         checkSwitch();
         onCreateLaunched = 1;
 
-        if (onAdLaunched == 0) {
-            mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-            mInterstitialAd.setAdListener(new AdListener() {
-                @Override
-                public void onAdLoaded() {
-                    Log.d("TAG", "INTERSTITIAL LOADED");
-                    mInterstitialAd.show();
-                    onAdLaunched++;
-                    SharedPreferences.Editor editor = getSharedPreferences("nousage.savemobiledata", MODE_PRIVATE).edit();
-                    editor.putInt("onAdLaunched", onAdLaunched);
-                    editor.commit();
-                }
-
-                @Override
-                public void onAdFailedToLoad(int errorCode) {
-                    Log.d("TAG", "The interstitial wasn't loaded yet." + errorCode);
-                }
-            });
-        } else {
-            onAdLaunched++;
-            if (onAdLaunched == 3) onAdLaunched = 0;
-            SharedPreferences.Editor editor = getSharedPreferences("nousage.savemobiledata", MODE_PRIVATE).edit();
-            editor.putInt("onAdLaunched", onAdLaunched);
-            editor.commit();
-        }
-
 
         mSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +100,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        /*MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });*/
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-9180401716986593/9443423441");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
 
